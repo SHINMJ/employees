@@ -2,13 +2,9 @@ version: "3.7"
 
 services:
   database:
-    image: mysql:8.0
+    image: mysql:latest
     environment:  # 환경변수
-      MYSQL_DATABASE: hr
-      MYSQL_USER: hruser
-      MYSQL_PASSWORD: hr!234
       MYSQL_ROOT_PASSWORD: hr!234
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_ROOT_HOST: "%"
       TZ: Asia/Seoul
     volumes:
@@ -18,7 +14,7 @@ services:
     platform: linux/x86_64 # m1인 경우
     ports:
       - "3306:3306"
-    container_name: mysql-container
+    container_name: db-container
     restart: always
     networks:
       - hr-network
@@ -32,7 +28,7 @@ services:
     depends_on:
       - database
     environment:
-      DB_HOST: mysql-container
+      DB_HOST: db-container
       DB_PORT: 3306
       DATABASE_NAME: hr
       DB_USERNAME: hruser

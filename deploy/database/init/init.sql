@@ -1,20 +1,22 @@
-/**
-* You can copy, modify, distribute and perform the work, even for commercial purposes,
-* all without asking permission.
-*
-* @Author: Andrei N. CIOBANU
-*/
+--/**
+--* You can copy, modify, distribute and perform the work, even for commercial purposes,
+--* all without asking permission.
+--*
+--* @Author: Andrei N. CIOBANU
+--*/
 
-DROP SCHEMA
+use mysql;
 
-IF EXISTS hr;
-	CREATE SCHEMA hr COLLATE = utf8_general_ci;
+create user 'hruser'@'%' identified by 'hr!234';
 
-USE hr;
+grant all privileges on *.* to 'hruser'@'%';
 
-/* ***************************************************************
-***************************CREATING TABLES************************
-**************************************************************** */
+flush privileges;
+
+CREATE SCHEMA hr COLLATE = utf8_general_ci;
+
+use hr;
+
 CREATE TABLE regions (
 	region_id INT (11) UNSIGNED NOT NULL,
 	region_name VARCHAR(25),
@@ -114,9 +116,6 @@ WHERE e.department_id = d.department_id
 	AND c.region_id = r.region_id
 	AND j.job_id = e.job_id;
 
-/* ***************************************************************
-***************************INSERTING DATA*************************
-**************************************************************** */
 INSERT INTO regions
 VALUES (
 	1,
@@ -2627,9 +2626,6 @@ VALUES (
 
 COMMIT;
 
-/* ***************************************************************
-***************************FOREIGN KEYS***************************
-**************************************************************** */
 
 ALTER TABLE countries ADD FOREIGN KEY (region_id) REFERENCES regions(region_id);
 ALTER TABLE locations ADD FOREIGN KEY (country_id) REFERENCES countries(country_id);
