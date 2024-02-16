@@ -5,3 +5,6 @@
 - jdk 17
 - MySQL 8.0
 - Spring Data JPA
+
+## Data
+[hr-schema-mysql](https://github.com/nomemory/hr-schema-mysql/blob/master/hr-schema-mysql.sql)
