@@ -1,17 +1,18 @@
 package com.example.hr.domain.employee;
 
+import com.example.hr.common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"jobHistoryId"}, callSuper = true)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "job_history")
-public class JobHistory {
+public class JobHistory extends BaseEntity {
 
     @EmbeddedId
     private JobHistoryId jobHistoryId;

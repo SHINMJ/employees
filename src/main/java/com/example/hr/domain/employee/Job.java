@@ -10,7 +10,8 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@EqualsAndHashCode
+@Getter
+@EqualsAndHashCode(of = {"jobId"}, callSuper = true)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

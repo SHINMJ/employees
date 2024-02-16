@@ -9,7 +9,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@EqualsAndHashCode
+@Getter
+@EqualsAndHashCode(of = {"employeeId"}, callSuper = true)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
