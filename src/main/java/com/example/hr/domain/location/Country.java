@@ -6,7 +6,8 @@ import lombok.*;
 
 import java.util.Objects;
 
-@EqualsAndHashCode
+@Getter
+@EqualsAndHashCode(of = {"countryId"}, callSuper = true)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

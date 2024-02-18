@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+@Getter
 @EqualsAndHashCode(of = {"jobHistoryId"}, callSuper = true)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -27,4 +28,13 @@ public class JobHistory extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", foreignKey = @ForeignKey(name = "job_history_ibfk_3"), nullable = false)
     private Department department;
+
+    public Employee getEmployee(){
+        return this.getJobHistoryId().getEmployee();
+    }
+
+    public LocalDate getStartDate(){
+        return this.getJobHistoryId().getStartDate();
+    }
+
 }

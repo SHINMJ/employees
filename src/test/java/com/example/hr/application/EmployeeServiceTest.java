@@ -1,10 +1,11 @@
 package com.example.hr.application;
 
+import com.example.hr.application.employee.EmployeeService;
 import com.example.hr.domain.employee.Department;
 import com.example.hr.domain.employee.Employee;
 import com.example.hr.domain.employee.EmployeeRepository;
 import com.example.hr.domain.employee.Job;
-import com.example.hr.dto.EmployeeResponse;
+import com.example.hr.dto.employee.EmployeeResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -52,7 +53,7 @@ class EmployeeServiceTest {
         Mockito.when(repository.findById(anyLong()))
                 .thenReturn(Optional.of(employee));
 
-        EmployeeResponse response = service.findById(1L);
+        EmployeeResponse response = service.findResponseById(1L);
 
         assertAll(
                 () -> assertThat(response.employeeId()).isEqualTo(employee.getEmployeeId()),

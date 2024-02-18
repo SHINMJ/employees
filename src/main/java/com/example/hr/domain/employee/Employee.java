@@ -47,4 +47,10 @@ public class Employee extends BaseEntity {
     @JoinColumn(name = "manager_id", foreignKey = @ForeignKey(name = "employees_ibfk_3"))
     private Employee manager;
 
+    public Employee salaryIncrease(double percentage){
+        BigDecimal increase = this.salary.multiply(BigDecimal.valueOf((percentage/100)));
+        BigDecimal newSalary = this.salary.add(increase);
+        this.salary = newSalary;
+        return this;
+    }
 }

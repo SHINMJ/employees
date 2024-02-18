@@ -6,7 +6,6 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-
 @EqualsAndHashCode
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -19,5 +18,13 @@ public class JobHistoryId implements Serializable {
     private Employee employee;
     @Column(nullable = false)
     private LocalDate startDate;
+
+    Employee getEmployee(){
+        return this.employee;
+    }
+
+    LocalDate getStartDate(){
+        return this.startDate;
+    }
 
 }

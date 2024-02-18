@@ -6,7 +6,8 @@ import lombok.*;
 
 import java.util.Objects;
 
-@EqualsAndHashCode
+@Getter
+@EqualsAndHashCode(of = "locationId", callSuper = true)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,5 +29,9 @@ public class Location extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", foreignKey = @ForeignKey(name = "locations_ibfk_1"), nullable = false)
     private Country country;
+
+    public String getCountryName(){
+        return country.getCountryName();
+    }
 
 }

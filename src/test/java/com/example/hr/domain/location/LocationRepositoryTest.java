@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,9 +56,9 @@ class LocationRepositoryTest {
         // sql 확인
         locationRepository.flush();
 
-        List<Location> locations = locationRepository.findAll();
+        Optional<Location> location = locationRepository.findById(roma.getLocationId());
 
-        assertThat(locations.size()).isEqualTo(1);
-        assertThat(locations).contains(roma);
+        assertTrue(location.isPresent());
+        assertThat(location.get().getCountryName()).isEqualTo(country.getCountryName());
     }
 }

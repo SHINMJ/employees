@@ -33,18 +33,11 @@ class EmployeeRepositoryTest {
         em.createNativeQuery("insert into jobs (job_id, job_title) values ('job1', 'job1name')")
                 .executeUpdate();
 
-        em.createNativeQuery("insert into departments (department_id, department_name) values (100, 'department1')")
+        em.createNativeQuery("insert into departments (department_id, department_name) values (1, 'department1')")
                 .executeUpdate();
 
         job = em.find(Job.class, "job1");
-        department = em.find(Department.class, 100);
-    }
-
-    @AfterEach
-    void tearDown() {
-        em.createNativeQuery("delete from employees")
-                .executeUpdate();
-        em.flush();
+        department = em.find(Department.class, 1);
     }
 
     @Test
@@ -63,9 +56,10 @@ class EmployeeRepositoryTest {
 
         repository.flush();
 
-        List<Employee> employees = repository.findAll();
+        Optional<Employee> optional = repository.findById(employee.getEmployeeId());
 
-        assertThat(employees).contains(employee);
+        assertTrue(optional.isPresent());
+        assertEquals(optional.get(), employee);
     }
 
     @Test
@@ -78,6 +72,16 @@ class EmployeeRepositoryTest {
 
         assertEquals(saved, optional.get());
 
+    }
+
+
+    @Test
+    void findAllByDepartment() {
+        saveEmployee();
+
+        List<Employee> allByDepartment = repository.findAllByDepartment(department);
+
+        assertThat(allByDepartment.size()).isEqualTo(1);
     }
 
     private Employee saveEmployee(){

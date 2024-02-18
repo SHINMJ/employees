@@ -1,4 +1,4 @@
-package com.example.hr.dto;
+package com.example.hr.dto.employee;
 
 import com.example.hr.domain.employee.Employee;
 
