@@ -7,7 +7,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.Map;
 
-public record WeatherRequest(String ServiceKey, int pageNo, int numOfRows, String dataType,
+public record WeatherRequest(int pageNo, int numOfRows, String dataType,
                              int stnId, String tmFc) {
 
     public MultiValueMap<String, String> convertQueryParams() {

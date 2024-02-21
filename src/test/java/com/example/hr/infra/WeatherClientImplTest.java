@@ -2,6 +2,7 @@ package com.example.hr.infra;
 
 import com.example.hr.dto.openapi.OpenApiDataRequest;
 import com.example.hr.dto.openapi.OpenApiDataResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +15,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = {WeatherClientImpl.class})
 class WeatherClientImplTest {
 
-    @Autowired
     private WeatherClientImpl weatherClient;
+
+    @BeforeEach
+    void setUp() {
+        /**
+         * @Todo
+         *
+         * ServiceKey 가 있어야 테스트 제대로 동작
+         */
+        weatherClient = new WeatherClientImpl("servicekey", "http://apis.data.go.kr/1360000/MidFcstInfoService");
+    }
 
     @Test
     void getMidFcstData_success() {

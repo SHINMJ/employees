@@ -20,3 +20,7 @@ spring:
   h2:
     console:
       enabled: true
+
+openapi:
+  service-key: ${OPENAPI_SERVICE_KEY}
+  weather-base-url: http://apis.data.go.kr/1360000/MidFcstInfoService

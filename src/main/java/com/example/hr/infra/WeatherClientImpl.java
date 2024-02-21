@@ -12,8 +12,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.yaml.snakeyaml.util.UriEncoder;
 import reactor.core.publisher.Mono;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -29,28 +33,38 @@ public class WeatherClientImpl implements WeatherClient {
     private static final int DEFAULT_STN_ID = 108; //전국
 
 
-    @Value("${openapi.service-key}")
+
     private String serviceKey;
-    @Value("${openapi.weather-base-url}")
     private String baseUrl;
     private WebClient webClient;
 
-    @PostConstruct
-    public void init(){
+    public WeatherClientImpl(@Value("${openapi.service-key}") String serviceKey, @Value("${openapi.weather-base-url}")String baseUrl) {
+        this.serviceKey = serviceKey;
+        this.baseUrl = baseUrl;
+        createWebClient();
+    }
+
+    private void createWebClient(){
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(baseUrl);
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
         webClient = WebClient.builder()
+                .uriBuilderFactory(factory)
                 .baseUrl(baseUrl)
-                .defaultHeader("contentType", MediaType.APPLICATION_JSON_VALUE)
+                .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
 
     @Override
     public OpenApiDataResponse getMidFcstData(OpenApiDataRequest request) {
-        WeatherRequest weatherRequest = new WeatherRequest(serviceKey, request.page(), request.display(), DEFAULT_DATA_TYPE, DEFAULT_STN_ID, requestDate(request.date()));
+
+        WeatherRequest weatherRequest = new WeatherRequest(
+                request.page(), request.display(), DEFAULT_DATA_TYPE, DEFAULT_STN_ID, requestDate(request.date()));
 
         WeatherResponse weatherResponse = webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder.path("/getMidFcst")
                         .queryParams(weatherRequest.convertQueryParams())
+                        .queryParam("ServiceKey", serviceKey )
                         .build()
                 )
                 .retrieve()
