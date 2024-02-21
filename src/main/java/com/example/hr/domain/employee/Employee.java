@@ -1,22 +1,20 @@
 package com.example.hr.domain.employee;
 
-import com.example.hr.common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
-@EqualsAndHashCode(of = {"employeeId"}, callSuper = true)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "employees")
-public class Employee extends BaseEntity {
+public class Employee  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,5 +50,18 @@ public class Employee extends BaseEntity {
         BigDecimal newSalary = this.salary.add(increase);
         this.salary = newSalary;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Employee employee = (Employee) o;
+        return employeeId != null && Objects.equals(employeeId, employee.employeeId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

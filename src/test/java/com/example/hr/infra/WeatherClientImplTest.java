@@ -24,7 +24,8 @@ class WeatherClientImplTest {
          *
          * ServiceKey 가 있어야 테스트 제대로 동작
          */
-        weatherClient = new WeatherClientImpl("servicekey", "http://apis.data.go.kr/1360000/MidFcstInfoService");
+        weatherClient = new WeatherClientImpl("serviceKey",
+                "http://apis.data.go.kr/1360000/MidFcstInfoService");
     }
 
     @Test
