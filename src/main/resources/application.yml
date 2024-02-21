@@ -1,12 +1,10 @@
 spring:
-  sql:
-    init:
-      mode: always
   datasource:
-    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
-    username: sa
+    url: jdbc:mariadb://${DB_HOST}:${DB_PORT}/${DATABASE_NAME}?serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
   jpa:
-    generate-ddl: true
     hibernate:
       database-platform: org.hibernate.dialect.MySQL8Dialect
       ddl-auto: none
