@@ -26,5 +26,6 @@ http://13.209.99.83:8080/
   - GET /openapi/mid-fcst-info
 
 ## Deploy
-1. gradle 빌드  `./gradlew build`
-2. docker-compose 통해 deploy `docker-compose up -d --build`
+1. database volume directory 생성 `mkdir ./database/data` 
+2. gradle 빌드  `./gradlew build`
+3. docker-compose 통해 deploy `docker-compose up -d --build`
