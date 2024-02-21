@@ -1,22 +1,17 @@
 spring:
-  sql:
-    init:
-      mode: always
   datasource:
-    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
-    username: sa
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DATABASE_NAME}?serverTimezone=Asia/Seoul
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    generate-ddl: true
     hibernate:
-      database-platform: org.hibernate.dialect.MySQL8Dialect
+      database-platform: org.hibernate.dialect.MySQL5Dialect
       ddl-auto: none
     properties:
       hibernate:
-        format_sql: true
-    show-sql: true
-  h2:
-    console:
-      enabled: true
+        format_sql: false
+    show-sql: false
 
 openapi:
   service-key: ${OPENAPI_SERVICE_KEY}

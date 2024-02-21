@@ -6,6 +6,10 @@
 - MySQL 8.0
 - Spring Data JPA
 
+## Data 참고
+[hr-schema-mysql](https://github.com/nomemory/hr-schema-mysql/blob/master/hr-schema-mysql.sql)
+
+
 ## API 
 (<< server >>/swagger-ui/index.html 에서 확인 가능)
 - [x] 특정 사원의 현재 정보 조회 가능한 api

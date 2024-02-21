@@ -1,19 +1,19 @@
 package com.example.hr.domain.employee;
 
-import com.example.hr.common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Getter
-@EqualsAndHashCode(of = {"jobHistoryId"}, callSuper = true)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "job_history")
-public class JobHistory extends BaseEntity {
+public class JobHistory  {
 
     @EmbeddedId
     private JobHistoryId jobHistoryId;
@@ -37,4 +37,16 @@ public class JobHistory extends BaseEntity {
         return this.getJobHistoryId().getStartDate();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        JobHistory that = (JobHistory) o;
+        return jobHistoryId != null && Objects.equals(jobHistoryId, that.jobHistoryId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(jobHistoryId);
+    }
 }

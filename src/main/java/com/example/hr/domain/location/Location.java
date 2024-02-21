@@ -1,19 +1,18 @@
 package com.example.hr.domain.location;
 
-import com.example.hr.common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
 @Getter
-@EqualsAndHashCode(of = "locationId", callSuper = true)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "locations")
-public class Location extends BaseEntity {
+public class Location  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +33,16 @@ public class Location extends BaseEntity {
         return country.getCountryName();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Location location = (Location) o;
+        return locationId != null && Objects.equals(locationId, location.locationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
