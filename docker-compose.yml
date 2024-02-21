@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+  database:
+    image: mysql:latest
+    environment:  # 환경변수
+      MYSQL_ROOT_PASSWORD: hr!234
+      MYSQL_ROOT_HOST: "%"
+      TZ: Asia/Seoul
+    volumes:
+      - ./database/init/:/docker-entrypoint-initdb.d/
+      - ./database/conf.d:/etc/mysql/conf.d
+      - ./database/data:/var/lib/mysql
+    platform: linux/x86_64 # m1인 경우
+    ports:
+      - "3306:3306"
+    container_name: db-container
+    restart: always
+    networks:
+      - hr-network
+
+  application:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    environment:
+      DB_HOST: db-container
+      DB_PORT: 3306
+      DATABASE_NAME: hr
+      DB_USERNAME: hruser
+      DB_PASSWORD: hr!234
+      OPENAPI_SERVICE_KEY: ${OPENAPI_SERVICE_KEY}
+    container_name: app
+    restart: always
+    networks:
+      - hr-network
+
+
+networks:
+  hr-network:
